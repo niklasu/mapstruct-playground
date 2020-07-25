@@ -40,4 +40,20 @@ public class MapstructTest {
         Article generatedArticle = mapper.fromDto(articleDTO);
         assertEquals(content, generatedArticle.getContent());
     }
+
+    @Test
+    void mappingTarget() {
+        ArticleMapper mapper = Mappers.getMapper(ArticleMapper.class);
+        ArticleDTO articleDTO = new ArticleDTO();
+        articleDTO.setInhalt("x");
+        articleDTO.setAuthor("bernd");
+
+        Article article = new Article();
+        article.setAuthor("fred");
+        article.setContent("previousConent");
+
+        Article updatedArticle = mapper.updateFromDto(articleDTO, article);
+        assertEquals(articleDTO.getAuthor(), updatedArticle.getAuthor());
+        assertEquals(articleDTO.getInhalt(), updatedArticle.getContent());
+    }
 }
